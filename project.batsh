@@ -1,0 +1,33 @@
+//!/bin/bash
+// https://batsh.org
+
+batch("set command=%1");
+bash("command=$1");
+
+function build() {
+    println("stack setup");
+    call("stack", "setup");
+    println("stack build");
+    call("stack", "build");
+}
+
+function exec() {
+    println("stack exec hcs-exe");
+    call("stack", "exec", "hcs-exe");
+}
+
+function clean_stack() {
+    println("stack clean --full");
+    call("stack", "clean", "--full");
+}
+
+if (command == "build") {
+    build();
+} else if (command == "exec") {
+    exec();
+} else if (command == "clean-stack") {
+    clean_stack();
+} else {
+    build();
+    exec();
+}
